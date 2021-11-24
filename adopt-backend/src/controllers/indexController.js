@@ -21,7 +21,7 @@ const createPerson = async( req, res ) => {
     const { fullname, birthday, person, adopt } = req.body; 
     
     const response = await pool.query( `INSERT INTO "People" (fullname, person, adopt, birthday )
-    VALUES ('${ fullname }','${ person }','${ adopt }','${ birthday }')`);
+    VALUES ('${ fullname }',${ person },${ adopt },'${ birthday }')`);
      
     res.status(200).json({
         message: 'Person Added Successfully',
@@ -43,7 +43,7 @@ const updatePerson = async( req, res ) => {
     const { fullname, birthday, person, adopt } = req.body;
 
     const response = await pool.query(`UPDATE "People" 
-    SET fullname='${ fullname }', person='${ person }', adopt='${ adopt }', birthday='${ birthday }'
+    SET fullname='${ fullname }', person=${ person }, adopt=${ adopt }, birthday='${ birthday }'
     WHERE id = ${ id }`);
 
     console.log(response)
