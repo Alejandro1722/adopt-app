@@ -9,7 +9,7 @@ Instalaciones necesarias:
 
 
 1. Clonar el repositorio en el computador que se desea probar la aplicación web.
-2. Abrir el CMD en la ruta correspondiente a cada carpeta dentro del proyecto: adopt-app y adopt-backend.
+2. Abrir el CMD y situarse en la ruta correspondiente a cada carpeta: adopt-app y adopt-backend.
 Una vez situados en tal ruta, escribir el siguiente comando: npm install. Este  comando instalará todas 
 las dependencias y librerías que se usaron en la creación del proyecto.
 3. Abrir la consola de postgresql y escribir los comandos que se encuentran en el folder database, en 
