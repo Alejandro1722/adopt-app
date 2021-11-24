@@ -9,19 +9,19 @@ const pool = new Pool({
 })
 
 const getPeople = async( req, res ) => {
-    const response = await pool.query(`SELECT * FROM "People"`);
+    const response = await pool.query(`SELECT * FROM "people"`);
     res.status(200).json(response.rows); 
 }
 const getPersonById = async( req, res ) => {
-    const response = await pool.query(`SELECT * FROM "People" where id = ${ req.params.id }`);
+    const response = await pool.query(`SELECT * FROM "people" where id = ${ req.params.id }`);
     res.status(200).json(response.rows); 
 }
 const createPerson = async( req, res ) => {
     
     const { fullname, birthday, person, adopt } = req.body; 
     
-    const response = await pool.query( `INSERT INTO "People" (fullname, person, adopt, birthday )
-    VALUES ('${ fullname }',${ person },${ adopt },'${ birthday }')`);
+    await pool.query( `INSERT INTO "people" (fullname, birthday, person, adopt )
+    VALUES ('${ fullname }','${ birthday }','${ person }','${ adopt }')`);
      
     res.status(200).json({
         message: 'Person Added Successfully',
@@ -31,7 +31,7 @@ const createPerson = async( req, res ) => {
     }); 
 }
 const deletePerson = async( req, res ) => {
-    const response = await pool.query(`DELETE FROM "People" WHERE id = ${ req.params.id }`);
+    await pool.query(`DELETE FROM "people" WHERE id = ${ req.params.id }`);
     res.status(200).json({
         ok: true,
         message: `Person ${ req.params.id } has been eliminated`,
@@ -42,8 +42,8 @@ const updatePerson = async( req, res ) => {
     const id = req.params.id; 
     const { fullname, birthday, person, adopt } = req.body;
 
-    const response = await pool.query(`UPDATE "People" 
-    SET fullname='${ fullname }', person=${ person }, adopt=${ adopt }, birthday='${ birthday }'
+    const response = await pool.query(`UPDATE "people" 
+    SET fullname='${ fullname }', birthday='${ birthday }', person='${ person }', adopt='${ adopt }'
     WHERE id = ${ id }`);
 
     console.log(response)

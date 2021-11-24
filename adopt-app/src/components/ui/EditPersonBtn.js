@@ -20,7 +20,7 @@ export const EditPersonBtn = ({values}) => {
     return (
         <button 
             type="button" 
-            className="btn btn-outline-primary"
+            className="btn btn-outline-primary me-2 mb-2"
             onClick={ handleEditPerson }
         >
                 Edit

@@ -12,8 +12,8 @@ Modal.setAppElement('#root');
 const initialState = { 
     fullname: 'Alejandro Vásquez O.', 
     birthday: '1995-11-22', 
-    person: '1', 
-    adopt: '1', 
+    person: 'N/A', 
+    adopt: 'N/A', 
 }
 export const AdoptModal = () => {
 
@@ -21,7 +21,7 @@ export const AdoptModal = () => {
 
     const { modal } = useSelector( state => state.ui );
 
-    const { activePerson } = useSelector( state => state.pe );
+    const { activePerson, people } = useSelector( state => state.pe );
 
     const [ formValues, setFormValues ] = useState(initialState); 
 
@@ -37,10 +37,6 @@ export const AdoptModal = () => {
     }, [activePerson, setFormValues])
 
 
-    const reset = () => {
-        setFormValues( initialState );
-    }
-
     const handleInputChange = ({ target }) => {
         setFormValues({
             ...formValues, 
@@ -54,9 +50,8 @@ export const AdoptModal = () => {
     }
     
     const handleSubmitNewPerson = (e) => {
+        e.preventDefault(); 
 
-        e.preventDefault()
-        
         if( activePerson ){
             dispatch( startEditPerson(formValues) ); 
         }else {
@@ -71,8 +66,8 @@ export const AdoptModal = () => {
         <Modal
             isOpen={ modal }
             // onAfterOpen={afterOpenModal}
-            onRequestClose={handleCloseModal}
-            style={customStyles}
+            onRequestClose={ handleCloseModal }
+            style={ customStyles }
             closeTimeoutMS={ 200 }
             contentLabel="Example Modal"
         >
@@ -122,25 +117,44 @@ export const AdoptModal = () => {
                 </div>
 
                 <div className="form-group mt-3">
-                    <label className="mb-2">Person: </label>
-                    <input 
-                        type="text" 
+                    <label className="mb-2">Mother/Father: </label>
+                    <select 
                         className="form-control" 
                         name="person" 
-                        onChange={ handleInputChange }
-                        value={ person }
-                    />
+                        onChange={ handleInputChange } 
+                        value={ person }        
+                    >
+                        <option value={ "N/A" }>-- N/A --</option>
+                        {
+                            people.map( people =>( 
+                                <option 
+                                    value={ people.fullname } 
+                                    key={ people.id } >{ people.id }. {people.fullname}
+                                </option>
+                            ))
+                        }
+                    </select>
                 </div>
 
                 <div className="form-group mt-3">
                     <label className="mb-2">Adopt: </label>
-                    <input 
+                    <select 
                         type="text" 
                         className="form-control" 
                         name="adopt" 
                         onChange={ handleInputChange }
                         value={ adopt }
-                    />
+                    >
+                        <option value={ "N/A" } >-- N/A --</option>
+                        {
+                            people.map( people =>( 
+                                <option 
+                                    value={ people.fullname } 
+                                    key={ people.id } >{ people.id }. {people.fullname}
+                                </option>
+                            ))
+                        }
+                    </select>
                 </div>
 
                 <button
@@ -149,16 +163,8 @@ export const AdoptModal = () => {
                 >
                     <i className="far fa-save"></i>
                     <span> Guardar</span>
-                </button>
-                <button
-                    className="btn btn-outline-secundary btn-block mt-3"
-                    onClick={ reset }
-                >
-                    <span> Reset</span>
-                </button>  
-            </form>
-
-            
+                </button> 
+            </form>    
         </Modal>
     )
 }

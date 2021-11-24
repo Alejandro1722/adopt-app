@@ -29,7 +29,7 @@ export const DeletePersonBtn = ( {values} ) => {
     return (
         <button 
             type="button" 
-            className="btn btn-outline-danger ms-2"
+            className="btn btn-outline-danger mb-2"
             onClick={ handleDeletePerson }
         >
             

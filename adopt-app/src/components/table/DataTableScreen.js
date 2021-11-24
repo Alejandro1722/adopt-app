@@ -1,9 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { DeletePersonBtn } from '../ui/DeletePersonBtn';
 import { EditPersonBtn } from '../ui/EditPersonBtn';
 
 export const DataTableScreen = ({ id, fullname, birthday, person, adopt }) => {
+
+    const { people } = useSelector( state => state.pe );
 
     return (
         <>  
@@ -14,7 +17,7 @@ export const DataTableScreen = ({ id, fullname, birthday, person, adopt }) => {
                 <td>{ birthday }</td>
                 <td>{ person }</td>
                 <td>{ adopt }</td>
-                <td><EditPersonBtn values={{ id, fullname, birthday, person, adopt }} />
+                <td className="ms-2"><EditPersonBtn values={{ id, fullname, birthday, person, adopt }} />
                     <DeletePersonBtn values={{ id }}/>
                 </td>
                 </tr>
