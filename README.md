@@ -1,4 +1,4 @@
-# Instrucciones de uso, en localhost
+# Instrucciones de uso, en localhost.
 
 ```
 Instalaciones necesarias: 
